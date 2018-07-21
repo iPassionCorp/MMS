@@ -22,7 +22,7 @@
                             <th scope="col" class="text-center">Seq No.</th>
                             <th scope="col" class="text-center">Page Name</th>
                             <th scope="col" class="text-center">Url Iframe</th>
-                            <th scope="col" class="text-center">Start - End Time</th>
+                            <th scope="col" class="text-center">Duration Time</th>
                             <th scope="col" class="text-center">Published</th>
                             <th scope="col" class="text-center">Create Date</th>
                             <th scope="col" class="text-center">Update Date</th>
@@ -35,7 +35,13 @@
                                     <th scope="row" class="text-center">{{$item->seq}}</th>
                                     <td>{{$item->name}}</td>
                                     <td class="text-center">{{$item->url}}</td>
-                                    <td class="text-center">{{$item->start_time}} - {{$item->end_time}}</td>
+                                    <td class="text-center">
+                                        @if($item->minutes != NULL)
+                                            {{$item->minutes}} minutes : {{$item->seconds}} seconds
+                                        @else
+                                            {{$item->seconds}} seconds
+                                        @endif
+                                    </td>
                                     @if($item->published == 1)
                                         <td class="text-center"><i class="far fa-eye"></i></i></td>
                                     @else

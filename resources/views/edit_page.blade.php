@@ -21,7 +21,10 @@
                                         <div class="col col-sm-5">
                                                 <div class="form-group">
                                                     <label><b>Seq No :</b></label>
-                                                <input type="number" value="{{$page->seq}}" name="seq" class="form-control" required>
+                                                    <input type="number" value="{{$page->seq}}" name="seq" class="form-control" required min="1">
+                                                    @if(session()->has('error'))
+                                                        <span class="text-danger"><b>{{ session()->get('error') }}</b></span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="col col-sm-7">
@@ -39,14 +42,14 @@
                                                 <div class="form-row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label><b>End Time:</b></label>
-                                                            <input type="text" name="start_time" class="form-control" required id="start_time" value="{{$page->start_time}}">
+                                                            <label><b>Minutes:</b></label>
+                                                            <input type="text" name="minutes" class="form-control" value="{{$page->minutes}}">
                                                         </div>    
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label><b>End Time:</b></label>
-                                                            <input type="text" name="end_time" class="form-control" required id="end_time" value="{{$page->end_time}}">
+                                                            <label><b>Seconds:</b></label>
+                                                            <input type="text" name="seconds" class="form-control" required value="{{$page->seconds}}">
                                                         </div>    
                                                     </div>
                                                 </div>

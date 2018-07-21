@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Page;
 use DB;
 use \Carbon\Carbon;
+use Validator;
 
 class HomeController extends Controller
 {
@@ -26,9 +27,7 @@ class HomeController extends Controller
      */
     public function welcome()
     {
-        $now   = Carbon::now('Asia/Bangkok');
-        $time  = $now->format('H:i');
-        $pages = DB::table('pages')->where('start_time', '<=', $time)->where('end_time', '>=', $time)->orderBy('seq', 'asc')->limit(1)->get();
+        $pages = DB::table('pages')->where('published', '=', 1)->orderBy('seq', 'asc')->get();
         return view('welcome', compact('pages'));
     }
 
@@ -46,17 +45,28 @@ class HomeController extends Controller
     public function store(Request $req)
     {
         $data = $req->all();
+
+        $validator = Validator::make($data, [
+            'seq' => 'required|unique:pages'
+        ]);
+
+        $minutes = $data['minutes'] * 60000;
+        $seconds = $data['seconds'] * 1000;
+        $duration = $minutes + $seconds;
         
         $page = new Page();
         $page->seq = $data['seq'];
         $page->name = $data['name'];
         $page->url = $data['url'];
         $page->published = $data['published'];
-        $page->start_time = $data['start_time'];
-        $page->end_time = $data['end_time'];
-        
-        $page->save();
-        if($page){
+        $page->minutes = $data['minutes'];
+        $page->seconds = $data['seconds'];
+        $page->duration = $duration;
+
+        if($validator->fails()){
+            return redirect('create')->with('error','Seq No. Existing');
+        }else{
+            $page->save();
             return redirect('home');
         }
     }
@@ -70,17 +80,29 @@ class HomeController extends Controller
     public function update(Request $req)
     {
         $data = $req->all();
-        
+
         $page = Page::find($data['id']);
+
+        $validator = Validator::make($data, [
+            'seq' => 'required|unique:pages,seq,'.$page->id
+        ]);
+
+        $minutes = $data['minutes'] * 60000;
+        $seconds = $data['seconds'] * 1000;
+        $duration = $minutes + $seconds;
+
         $page->seq = $data['seq'];
         $page->name = $data['name'];
         $page->url = $data['url'];
         $page->published = $data['published'];
-        $page->start_time = $data['start_time'];
-        $page->end_time = $data['end_time'];
+        $page->minutes = $data['minutes'];
+        $page->seconds = $data['seconds'];
+        $page->duration = $duration;
         
-        $page->save();
-        if($page){
+        if($validator->fails()){
+            return redirect()->back()->with('error','Seq No. Existing');
+        }else{
+            $page->save();
             return redirect('home');
         }
     }

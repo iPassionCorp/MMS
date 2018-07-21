@@ -20,7 +20,10 @@
                                         <div class="col col-sm-5">
                                                 <div class="form-group">
                                                     <label><b>Seq No :</b></label>
-                                                    <input type="number" value="0" name="seq" class="form-control" required>
+                                                    <input type="number" name="seq" class="form-control" required min="1">
+                                                    @if(session()->has('error'))
+                                                        <span class="text-danger"><b>{{ session()->get('error') }}</b></span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="col col-sm-7">
@@ -38,14 +41,14 @@
                                                 <div class="form-row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label><b>Start Time:</b></label>
-                                                            <input type="text" name="start_time" class="form-control" required id="start_time">
+                                                            <label><b>Minutes:</b></label>
+                                                            <input type="number" name="minutes" class="form-control">
                                                         </div>    
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label><b>End Time:</b></label>
-                                                            <input type="text" name="end_time" class="form-control" required id="end_time">
+                                                            <label><b>Seconds:</b></label>
+                                                            <input type="number" name="seconds" class="form-control" required>
                                                         </div>    
                                                     </div>
                                                 </div>
@@ -77,11 +80,4 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function(){
-        $('#start_time').bootstrapMaterialDatePicker({ date: false, format : 'HH:mm' });
-        $('#end_time').bootstrapMaterialDatePicker({ date: false, format : 'HH:mm' });
-    });
-</script>
 @endsection

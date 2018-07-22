@@ -10,7 +10,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-            <div class="card-header"><h5><b><a href="{{url('home')}}" class="text-primary"><i class="fas fa-arrow-circle-left"></i></a> Create Page</b></h5></div>
+            <div class="card-header"><h5><b><a href="{{url('admin')}}" class="text-primary"><i class="fas fa-arrow-circle-left"></i></a> Create Page</b></h5></div>
                 <div class="card-body">
                     <form method="POST" action="{{ url('store') }}">
                         @csrf
@@ -20,7 +20,7 @@
                                         <div class="col col-sm-5">
                                                 <div class="form-group">
                                                     <label><b>Seq No :</b></label>
-                                                    <input type="number" name="seq" class="form-control" required min="1">
+                                                    <input type="number" name="seq" class="form-control {{ session()->has('error') ? ' is-invalid' : '' }}" required min="1">
                                                     @if(session()->has('error'))
                                                         <span class="text-danger"><b>{{ session()->get('error') }}</b></span>
                                                     @endif
@@ -66,18 +66,35 @@
                             <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label><b>Url Iframe:</b></label>
-                                        <textarea type="text" name="url" class="form-control" required rows="3"></textarea>
+                                        <textarea type="text" name="url" id="url" class="form-control" required rows="3"></textarea>
                                         <span class="text-danger">* include http:// or https://</span>
                                     </div>
                             </div>
                         </div>
                         <hr>
-                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Save</button>
-                        <button type="reset" class="btn btn-dark">Cancel</button>
+                        <div class="text-center">
+                                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Save</button>
+                                <button type="reset" class="btn btn-warning">Reset</button>
+                                <a href="{{url('admin')}}" class="btn btn-dark">Cancel</a>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $( "form" ).submit(function( event ) {
+            var string = $('#url').val();
+            if (string.toLowerCase().indexOf("http://") >= 0 || string.toLowerCase().indexOf("https://") >= 0){
+                $('form').submit();
+            }else{
+                alert('Please include http:// or https://');
+                return false;
+            }
+            event.preventDefault();
+        });
+    });
+</script>
 @endsection

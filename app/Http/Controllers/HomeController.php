@@ -64,10 +64,10 @@ class HomeController extends Controller
         $page->duration = $duration;
 
         if($validator->fails()){
-            return redirect('create')->with('error','Seq No. Existing');
+            return redirect('admin/create')->with('error','Seq No. Existing');
         }else{
             $page->save();
-            return redirect('home');
+            return redirect('admin');
         }
     }
 
@@ -103,7 +103,7 @@ class HomeController extends Controller
             return redirect()->back()->with('error','Seq No. Existing');
         }else{
             $page->save();
-            return redirect('home');
+            return redirect('admin');
         }
     }
 

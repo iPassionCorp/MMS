@@ -10,27 +10,22 @@
         <script src="{{asset('assets/jquery.min.js')}}"></script>
     </head>
     <body>
-        {{-- @foreach ($pages as $item)
-            <span data-url="{{$item->url}}" data-duration="{{$item->duration}}"></span>
-        @endforeach --}}
-                <div class="embed-container">
-                    <iframe id="iframe-page" src="" style="border:0">
-                </iframe></div>
-                {{-- <div class="flex-center position-ref full-height">
+        @if((!empty($pages[0]->url)))
+            <div class="embed-container">
+                <iframe id="iframe-page" src="" style="border:0">
+            </iframe></div>
+        @else
+             <div class="flex-center position-ref full-height">
                     <div class="content">
                         <div class="title">
-                            Sorry, the page you are looking for could not be found.
+                            Cannot be found.
                         </div>
                     </div>
-                </div> --}}
+                </div>
+        @endif
         <script>
             var iframe = document.getElementById("iframe-page");
             var currentPos = -1;
-            // var data = [
-            //     @foreach ($pages as $item)
-            //         "{{$item->url}}",
-            //     @endforeach
-            // ];
             var data = [
                 @foreach ($pages as $item)
                     {"url":"{{$item->url}}","duration": {{$item->duration}}},

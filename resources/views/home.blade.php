@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5><b>Monitor Management</b> <a href="{{url('create')}}" class="btn btn-success float-right"><b><i class="fas fa-plus"></i> Create</b></a></h5>
+                    <h5><b>Monitor Management</b> <a href="{{url('admin/create')}}" class="btn btn-success float-right"><b><i class="fas fa-plus"></i> Create</b></a></h5>
                     </div>
 
                 <div class="card-body">
@@ -50,7 +50,7 @@
                                     <td>{{$item->created_at}}</td>
                                     <td>{{$item->updated_at}}</td>
                                     <td class="text-center">
-                                        <a href="{{url('edit/'.$item->id)}}" class="btn btn-warning">Edit</a>&nbsp;
+                                        <a href="{{url('admin/edit/'.$item->id)}}" class="btn btn-warning">Edit</a>&nbsp;
                                         <a href="#" class="btn btn-danger delete" data-id="{{$item->id}}" data-token="{{ csrf_token() }}">Delete</a>
                                     </td>
                                 </tr>

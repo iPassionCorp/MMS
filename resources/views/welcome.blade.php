@@ -12,7 +12,7 @@
     <body>
         @if((!empty($pages[0]->url)))
             <div class="embed-container">
-                <iframe id="iframe-page" src="" style="border:0">
+                <iframe id="iframe-page" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" src="" style="border:0">
             </iframe></div>
         @else
              <div class="flex-center position-ref full-height">

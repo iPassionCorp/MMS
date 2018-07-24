@@ -15,48 +15,49 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    
-                    <table class="table table-bordered table-hover table-">
-                        <thead>
-                          <tr class="table-active">
-                            <th scope="col" class="text-center">Seq No.</th>
-                            <th scope="col" class="text-center">Page Name</th>
-                            <th scope="col" class="text-center">Url Iframe</th>
-                            <th scope="col" class="text-center">Duration Time</th>
-                            <th scope="col" class="text-center">Published</th>
-                            <th scope="col" class="text-center">Create Date</th>
-                            <th scope="col" class="text-center">Update Date</th>
-                            <th scope="col" class="text-center">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($pages as $item)
-                                <tr>
-                                    <th scope="row" class="text-center">{{$item->seq}}</th>
-                                    <td>{{$item->name}}</td>
-                                    <td class="text-center">{{$item->url}}</td>
-                                    <td class="text-center">
-                                        @if($item->minutes != NULL)
-                                            {{$item->minutes}} minutes : {{$item->seconds}} seconds
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-">
+                            <thead>
+                            <tr class="table-active">
+                                <th scope="col" class="text-center">Seq No.</th>
+                                <th scope="col" class="text-center">Page Name</th>
+                                <th scope="col" class="text-center">Url Iframe</th>
+                                <th scope="col" class="text-center">Duration Time</th>
+                                <th scope="col" class="text-center">Published</th>
+                                <th scope="col" class="text-center">Create Date</th>
+                                <th scope="col" class="text-center">Update Date</th>
+                                <th scope="col" class="text-center">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($pages as $item)
+                                    <tr>
+                                        <th scope="row" class="text-center">{{$item->seq}}</th>
+                                        <td>{{$item->name}}</td>
+                                        <td class="text-center">{{$item->url}}</td>
+                                        <td class="text-center">
+                                            @if($item->minutes != NULL)
+                                                {{$item->minutes}} minutes : {{$item->seconds}} seconds
+                                            @else
+                                                {{$item->seconds}} seconds
+                                            @endif
+                                        </td>
+                                        @if($item->published == 1)
+                                            <td class="text-center"><i class="far fa-eye"></i></i></td>
                                         @else
-                                            {{$item->seconds}} seconds
+                                            <td class="text-center"><i class="far fa-eye-slash"></i></td>
                                         @endif
-                                    </td>
-                                    @if($item->published == 1)
-                                        <td class="text-center"><i class="far fa-eye"></i></i></td>
-                                    @else
-                                        <td class="text-center"><i class="far fa-eye-slash"></i></td>
-                                    @endif
-                                    <td>{{$item->created_at}}</td>
-                                    <td>{{$item->updated_at}}</td>
-                                    <td class="text-center">
-                                        <a href="{{url('admin/edit/'.$item->id)}}" class="btn btn-warning">Edit</a>&nbsp;
-                                        <a href="#" class="btn btn-danger delete" data-id="{{$item->id}}" data-token="{{ csrf_token() }}">Delete</a>
-                                    </td>
-                                </tr>
-                            @endforeach                       
-                        </tbody>
-                      </table>
+                                        <td>{{$item->created_at}}</td>
+                                        <td>{{$item->updated_at}}</td>
+                                        <td class="text-center">
+                                            <a href="{{url('admin/edit/'.$item->id)}}" class="btn btn-warning">Edit</a>&nbsp;
+                                            <a href="#" class="btn btn-danger delete" data-id="{{$item->id}}" data-token="{{ csrf_token() }}">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach                       
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
